@@ -11,7 +11,8 @@ from src.domain.situations import Situation
 from src.knowledge.knowledge_base import KnowledgeBase
 from src.engine.models import DecisionResult, PrincipleMatch, AlignmentScore
 # Import the matching strategy interface and default implementation
-from src.engine.matching import MatchingStrategy, KeywordMatchingStrategy
+from src.engine.matching import MatchingStrategy, KeywordMatchingStrategy, SemanticMatchingStrategy
+from src.engine.embeddings import EmbeddingService
 
 
 class DecisionEngine:
@@ -21,21 +22,20 @@ class DecisionEngine:
     recommendations using a configurable matching strategy.
     """
     
-    def __init__(
-        self, 
-        knowledge_base: KnowledgeBase,
-        matching_strategy: Optional[MatchingStrategy] = None
-    ):
+    def __init__(self, knowledge_base: KnowledgeBase):
         """Initialize the decision engine.
         
         Args:
             knowledge_base: The loaded knowledge base.
-            matching_strategy: Strategy to use for principle matching.
-                               Defaults to KeywordMatchingStrategy.
         """
         self.kb = knowledge_base
-        self.matcher = matching_strategy or KeywordMatchingStrategy()
-    
+        # Initialize strategies
+        self.keyword_strategy = KeywordMatchingStrategy()
+        
+        # Try to initialize semantic strategy
+        self.embedding_service = EmbeddingService()
+        self.semantic_strategy = SemanticMatchingStrategy(self.embedding_service)
+        
     def evaluate(self, situation: Situation) -> DecisionResult:
         """Evaluate a situation against the principles framework.
         
@@ -45,8 +45,34 @@ class DecisionEngine:
         Returns:
             A DecisionResult with applicable principles and recommendations.
         """
-        # 1. Get applicable principles using the strategy
-        applicable = self.get_applicable_principles(situation)
+        # 1. Match Principles
+        # First try semantic matching
+        matches = self.semantic_strategy.match(situation, self.kb.principles)
+        
+        # Fallback or Augment with Keyword matching
+        # If semantic returned nothing or very few matches, run keyword
+        keyword_matches = self.keyword_strategy.match(situation, self.kb.principles)
+        
+        # Combine matches (simple logic: union by ID, take higher score)
+        combined_map = {}
+        for m in matches:
+            combined_map[m.principle.id] = m
+            
+        for m in keyword_matches:
+            if m.principle.id in combined_map:
+                # If existing score is lower, update?? Usually semantic is better but maybe not.
+                # Let's keep the max score
+                existing = combined_map[m.principle.id]
+                if m.relevance_score > existing.relevance_score:
+                    combined_map[m.principle.id] = m
+            else:
+                combined_map[m.principle.id] = m
+        
+        final_matches = list(combined_map.values())
+        final_matches.sort(key=lambda x: x.relevance_score, reverse=True)
+        
+        # Take top 3
+        applicable = final_matches[:3]
         
         # 2. Get triggered SOPs
         triggered_sops = self.get_applicable_sops(situation)

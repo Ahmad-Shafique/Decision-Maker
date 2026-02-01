@@ -7,9 +7,14 @@ different algorithms to be plugged into the Decision Engine.
 from abc import ABC, abstractmethod
 from typing import List
 
+import math
+from abc import ABC, abstractmethod
+from typing import List
+
 from src.domain.principles import Principle
 from src.domain.situations import Situation
 from src.engine.models import PrincipleMatch
+from src.engine.embeddings import EmbeddingService
 
 
 class MatchingStrategy(ABC):
@@ -97,6 +102,76 @@ class KeywordMatchingStrategy(MatchingStrategy):
                     match_reason="; ".join(match_reasons)
                 ))
 
-        # Sort by relevance
-        matches.sort(key=lambda m: m.relevance_score, reverse=True)
+        # Sort by score descending
+        matches.sort(key=lambda x: x.relevance_score, reverse=True)
         return matches
+
+
+class SemanticMatchingStrategy(MatchingStrategy):
+    """Matches principles using vector semantic similarity."""
+    
+    def __init__(self, embedding_service: EmbeddingService):
+        self.embedding_service = embedding_service
+        self.principle_embeddings = {}
+        
+    def _run_embedding_setup(self, principles: List[Principle]):
+        """Embed all principles if not done yet."""
+        if self.principle_embeddings:
+            return
+            
+        # print("DEBUG: Generating embeddings for principles...")
+        for p in principles:
+            # Create a rich representation of the principle
+            # Title is most important, but tags help context
+            text = f"{p.title}. Keywords: {', '.join(p.tags)}"
+            vec = self.embedding_service.embed_text(text)
+            if vec:
+                self.principle_embeddings[p.id] = vec
+                
+    def match(self, situation: Situation, principles: List[Principle]) -> List[PrincipleMatch]:
+        """Match using cosine similarity."""
+        # 1. Ensure principles are embedded
+        self._run_embedding_setup(principles)
+        if not self.principle_embeddings:
+            print("Warning: No principle embeddings available.")
+            return []
+            
+        # 2. Embed situation
+        sit_vec = self.embedding_service.embed_text(situation.description)
+        if not sit_vec:
+            print("Warning: Could not embed situation.")
+            return []
+            
+        matches = []
+        for p in principles:
+            if p.id not in self.principle_embeddings:
+                continue
+                
+            p_vec = self.principle_embeddings[p.id]
+            score = self._cosine_similarity(sit_vec, p_vec)
+            
+            # Threshold for semantic match
+            # 0.7 is usually a good starting point for 'related'
+            if score > 0.65:
+                matches.append(PrincipleMatch(
+                    principle=p,
+                    relevance_score=score,
+                    match_reason=f"Semantic similarity: {score:.2f}"
+                ))
+                
+        matches.sort(key=lambda x: x.relevance_score, reverse=True)
+        return matches
+
+    def _cosine_similarity(self, v1: List[float], v2: List[float]) -> float:
+        """Calculate cosine similarity between two vectors."""
+        if not v1 or not v2 or len(v1) != len(v2):
+            return 0.0
+            
+        dot_product = sum(a * b for a, b in zip(v1, v2))
+        norm_a = math.sqrt(sum(a * a for a in v1))
+        norm_b = math.sqrt(sum(b * b for b in v2))
+        
+        if norm_a == 0 or norm_b == 0:
+            return 0.0
+            
+        return dot_product / (norm_a * norm_b)
