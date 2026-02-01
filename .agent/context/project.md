@@ -57,8 +57,26 @@ The system follows a **modular, layered architecture** with clear separation of 
 
 ## Dependencies
 
-Core: `pyyaml`, `pydantic`, `typer`, `rich`, `jinja2`
-Optional: `fastapi`, `uvicorn` (for API)
+Core: `pyyaml`, `pydantic`, `typer`, `rich`, `jinja2`, `requests`, `python-dotenv`
+API: `fastapi`, `uvicorn`, `aiofiles`
+
+## LLM Integration
+
+The system uses LLMs for semantic matching and historical analysis with a prioritized fallback chain:
+
+1. **Gemini (Primary)** - `text-embedding-004` for embeddings, `gemini-2.0-flash` for analysis
+2. **DeepSeek (Fallback)** - OpenAI-compatible API if Gemini fails
+3. **Heuristic (Last Resort)** - Keyword-based matching when no LLM available
+
+## Environment Variables
+
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `GEMINI_API_KEY` | Yes | - | Google AI API key for embeddings |
+| `GEMINI_MODEL` | No | `gemini-2.0-flash` | Model for chat/analysis |
+| `DEEPSEEK_API_KEY` | No | - | DeepSeek API key (fallback) |
+| `DEEPSEEK_API_ENDPOINT` | No | - | DeepSeek endpoint URL |
+| `DEEPSEEK_MODEL` | No | `deepseek-chat` | DeepSeek model name |
 
 ## File Naming Conventions
 

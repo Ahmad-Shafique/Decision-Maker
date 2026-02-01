@@ -84,8 +84,8 @@ Simple keyword-based matching. Fast but less accurate.
 ### TagMatcher
 Matches based on situation tags to principle tags.
 
-### SemanticMatcher (Future)
-Uses embeddings for meaning-based matching. Most accurate.
+### SemanticMatchingStrategy
+Uses Gemini `text-embedding-004` to generate vector embeddings for principles and situations. Calculates cosine similarity to find conceptually related principles even without exact keyword matches. This is now the primary matching strategy.
 
 ## Output: DecisionResult
 
