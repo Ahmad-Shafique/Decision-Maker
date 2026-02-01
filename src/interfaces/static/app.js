@@ -14,7 +14,10 @@ const els = {
     sopsContainer: document.getElementById('sops-container'),
     confidenceBar: document.getElementById('confidence-bar'),
     confidenceVal: document.getElementById('confidence-value'),
-    alignmentVal: document.getElementById('alignment-value')
+    alignmentVal: document.getElementById('alignment-value'),
+    matchingMethod: document.getElementById('matching-method'),
+    llmProvider: document.getElementById('llm-provider'),
+    analysisStatus: document.getElementById('analysis-status')
 };
 
 // Check Health
@@ -34,6 +37,13 @@ async function checkHealth() {
     }
 }
 
+function updateStatus(message) {
+    if (els.analysisStatus) {
+        els.analysisStatus.textContent = message;
+        els.analysisStatus.style.opacity = '1';
+    }
+}
+
 // Analyze
 els.btn.addEventListener('click', async () => {
     const text = els.input.value.trim();
@@ -45,7 +55,11 @@ els.btn.addEventListener('click', async () => {
     els.loader.classList.remove('hidden');
     els.results.classList.add('hidden');
 
+    updateStatus('⏳ Awaiting model response...');
+
     try {
+        updateStatus('🔍 Sending to semantic matching...');
+
         const res = await fetch(`${API_URL}/analyze`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -54,10 +68,13 @@ els.btn.addEventListener('click', async () => {
 
         if (!res.ok) throw new Error('Analysis failed');
 
+        updateStatus('✅ Processing results...');
         const data = await res.json();
         renderResults(data);
+        updateStatus('');
 
     } catch (e) {
+        updateStatus('❌ Error: ' + e.message);
         alert('Error: ' + e.message);
     } finally {
         // Reset State
@@ -108,6 +125,17 @@ function renderResults(data) {
         els.alignmentVal.textContent = `${alignPct}%`;
     } else {
         els.alignmentVal.textContent = 'N/A';
+    }
+
+    // Matching Metadata
+    if (data.matching_metadata) {
+        const meta = data.matching_metadata;
+        els.matchingMethod.textContent = meta.strategies_succeeded?.join(' + ') || 'Unknown';
+        els.llmProvider.textContent = meta.llm_provider_used || 'Heuristic';
+
+        // Style the badges
+        els.matchingMethod.className = 'value badge ' + (meta.strategies_succeeded?.includes('semantic') ? 'semantic' : 'keyword');
+        els.llmProvider.className = 'value badge ' + (meta.llm_provider_used ? 'llm' : 'fallback');
     }
 
     // Smooth scroll

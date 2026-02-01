@@ -151,8 +151,11 @@ class SemanticMatchingStrategy(MatchingStrategy):
             score = self._cosine_similarity(sit_vec, p_vec)
             
             # Threshold for semantic match
-            # 0.7 is usually a good starting point for 'related'
-            if score > 0.65:
+            # NOTE: text-embedding-004 produces lower cosine similarities (~0.25-0.40) 
+            # for conceptually related but differently-worded text.
+            # Original 0.65 threshold was too high and filtered all matches.
+            # Threshold lowered to 0.20 after empirical testing.
+            if score > 0.20:
                 matches.append(PrincipleMatch(
                     principle=p,
                     relevance_score=score,
@@ -160,7 +163,8 @@ class SemanticMatchingStrategy(MatchingStrategy):
                 ))
                 
         matches.sort(key=lambda x: x.relevance_score, reverse=True)
-        return matches
+        # Return top 10 semantic matches to allow combination with keyword matches
+        return matches[:10]
 
     def _cosine_similarity(self, v1: List[float], v2: List[float]) -> float:
         """Calculate cosine similarity between two vectors."""

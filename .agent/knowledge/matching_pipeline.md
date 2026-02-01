@@ -48,6 +48,26 @@ The Decision Engine uses a **hybrid matching approach** combining semantic (LLM-
 - **Title keyword weight**: 0.15 per word (max 0.5)
 - Stop words filtered: the, and, or, a, an, to, of, in, for, with
 
+## Threshold Configuration
+
+> [!IMPORTANT]
+> The semantic similarity threshold MUST be calibrated empirically for each embedding model.
+
+| Model | Recommended Threshold | Notes |
+|-------|----------------------|-------|
+| `text-embedding-004` | 0.20 | Produces lower scores for conceptual similarity |
+| OpenAI `text-embedding-3-small` | 0.50-0.65 | Higher scores typical |
+| Cohere | 0.40-0.55 | Varies by model version |
+
+**Implementation lesson:** The original 0.65 threshold was copied from OpenAI documentation without empirical testing on the actual embedding model. This caused ALL semantic matches to be filtered out, making the system appear broken despite the API working correctly.
+
+## Preventing Similar Failures
+
+1. **Always test embedding thresholds empirically** before deployment
+2. **Log similarity scores during development** to understand the score distribution
+3. **Return top-N matches** instead of hard threshold cutoff as a fallback
+4. **Add integration tests** that verify realistic situations match expected principles
+
 ## Common Failure Modes
 
 | Symptom | Cause | Solution |

@@ -320,3 +320,54 @@ textarea:focus {
     font-size: 0.875rem;
     color: var(--text-secondary);
 }
+
+/* Matching Info Panel */
+.matching-info {
+    flex-direction: column;
+}
+
+.matching-info h3 {
+    text-align: center;
+}
+
+.meta-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.badge {
+    font-size: 0.9rem !important;
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.badge.semantic {
+    background: rgba(56, 189, 248, 0.2);
+    color: var(--accent-color);
+}
+
+.badge.keyword {
+    background: rgba(192, 132, 252, 0.2);
+    color: #c084fc;
+}
+
+.badge.llm {
+    background: rgba(74, 222, 128, 0.2);
+    color: var(--success-color);
+}
+
+.badge.fallback {
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+}
+
+.status-message {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    min-height: 1.5em;
+}
