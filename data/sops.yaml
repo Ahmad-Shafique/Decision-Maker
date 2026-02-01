@@ -1,0 +1,260 @@
+# Standard Operating Procedures (SOPs)
+# Step-by-step processes for recurring situations
+
+sops:
+  - id: 1
+    name: Daily Targets & Review
+    purpose: Execute Principle 1.4 & support Principle 45
+    related_principle_ids: [1, 45]
+    triggers:
+      - trigger_type: time_based
+        condition: Daily - morning and evening
+        keywords: [daily, morning, evening, targets, to-do, plan day]
+    steps:
+      - number: 1
+        instruction: Each morning, set 1-2 prioritized daily targets, alongside other deprioritized targets
+        is_optional: false
+      - number: 2
+        instruction: Each evening, compare results
+        is_optional: false
+      - number: 3
+        instruction: Celebrate completion (e.g., check mark, mental acknowledgment)
+        is_optional: false
+      - number: 4
+        instruction: "Diagnose gaps: Was the target unrealistic? Was focus lost?"
+        is_optional: false
+      - number: 5
+        instruction: Adjust next day's plan accordingly
+        is_optional: false
+
+  - id: 2
+    name: Strategic Meeting Preparation
+    purpose: Execute Principle 11 with maximum effectiveness
+    related_principle_ids: [11]
+    triggers:
+      - trigger_type: situation_based
+        condition: Before any important meeting or negotiation
+        keywords: [meeting, negotiation, discussion, presentation, stakeholder, vendor, client]
+    steps:
+      - number: 1
+        instruction: Write down the core interests (needs vs. wants) of each side
+        is_optional: false
+        notes: "Before Meeting"
+      - number: 2
+        instruction: Draft talking points for different conversation directions
+        is_optional: false
+      - number: 3
+        instruction: Rank issues by importance and cost of stalemate
+        is_optional: false
+      - number: 4
+        instruction: Prepare concrete proposals that meet others' key interests within your red lines
+        is_optional: false
+      - number: 5
+        instruction: Set red lines for unacceptable conversation topics
+        is_optional: false
+      - number: 6
+        instruction: "After Meeting: Perform a brief after-action review - What went well? Poorly? What to do better next time?"
+        is_optional: false
+        notes: "After Meeting"
+
+  - id: 3
+    name: Building Trust & Discretion (Calibrated Transparency)
+    purpose: Operationalize Principle 4
+    related_principle_ids: [4]
+    triggers:
+      - trigger_type: situation_based
+        condition: When deciding what to share with someone
+        keywords: [trust, share, disclose, transparency, confidential, secret, tell, reveal]
+    steps:
+      - number: 1
+        instruction: "Layer 1 (100% Trust): Radical transparency with proven inner circle"
+        is_optional: false
+      - number: 2
+        instruction: "Layer 2 (Growing Trust): Share broadly but withhold sensitive, unrelated personal data"
+        is_optional: false
+      - number: 3
+        instruction: "Layer 3 (New/Professional): Share only goal-relevant information. Observe reactions to gauge character"
+        is_optional: false
+      - number: 4
+        instruction: "General Rule: Share information openly as counterpart's demonstrated trustworthiness increases. Limit disclosure proactively to protect interests until then"
+        is_optional: false
+
+  - id: 4
+    name: Meeting Communication & Boundaries
+    purpose: Enforce Principle 5.2 in communication settings
+    related_principle_ids: [5]
+    triggers:
+      - trigger_type: situation_based
+        condition: During difficult conversations or when boundaries may be crossed
+        keywords: [boundary, difficult conversation, conflict, argument, offensive, inappropriate, attack, berate]
+    steps:
+      - number: 1
+        instruction: "Pre-define 'off-limits' topics for specific relationships (e.g., no berating, no personal attacks)"
+        is_optional: false
+      - number: 2
+        instruction: "At the start of a difficult conversation, or at the first sign of entering a red-line area, state calmly: 'I want to keep this productive. Let's avoid [X topic/behavior].'"
+        is_optional: false
+      - number: 3
+        instruction: "If the line is crossed, issue one clear warning: 'I've said that's off-limits. If it continues, I will need to end this conversation.'"
+        is_optional: false
+      - number: 4
+        instruction: "If crossed again, follow through: 'I'm ending the conversation now. We can resume when we can stay focused on [goal].'"
+        is_optional: false
+
+  - id: 5
+    name: Social Event Evaluation
+    purpose: Execute Principle 8 strategically
+    related_principle_ids: [8]
+    triggers:
+      - trigger_type: situation_based
+        condition: When deciding whether to attend a social event
+        keywords: [invitation, event, party, gathering, networking, social, attend, RSVP]
+    steps:
+      - number: 1
+        instruction: "Evaluate motivation: Obligation, genuine desire, or strategic opportunity?"
+        is_optional: false
+      - number: 2
+        instruction: "For events with few known contacts: Weigh potential for new, valuable connections against discomfort"
+        is_optional: false
+      - number: 3
+        instruction: Reflect on alignment with long-term goals (networking, personal growth)
+        is_optional: false
+      - number: 4
+        instruction: "Decide: Does the potential value outweigh the cost (time, energy)?"
+        is_optional: false
+
+  - id: 6
+    name: Consequential Pauses
+    purpose: Execute Principle 14.3
+    related_principle_ids: [14]
+    triggers:
+      - trigger_type: situation_based
+        condition: Any decision/action that feels high-stakes or could have lasting repercussions
+        keywords: [high-stakes, major decision, big decision, life-changing, irreversible, regret, significant, important decision, emotional, impulsive]
+    steps:
+      - number: 1
+        instruction: "Pause: Mandatory 24-48 hour delay"
+        is_optional: false
+      - number: 2
+        instruction: "Document: Write down the proposed decision, the facts, and your emotions driving it"
+        is_optional: false
+      - number: 3
+        instruction: "Review: After the pause, review the document with a clear mind"
+        is_optional: false
+      - number: 4
+        instruction: "Triangulate: Share with 1-2 trusted, believable people who will challenge you"
+        is_optional: false
+      - number: 5
+        instruction: "Decide: Proceed only after this process"
+        is_optional: false
+
+  - id: 7
+    name: Alarm-Bell Verification
+    purpose: Execute Principle 7 & Principle 18 when a request triggers suspicion
+    related_principle_ids: [7, 18]
+    triggers:
+      - trigger_type: situation_based
+        condition: A request involving money, sensitive info, or that intuitively feels 'off'
+        keywords: [suspicious, scam, money request, urgent, too good to be true, pressure, unusual request, gut feeling, something wrong, verify]
+    steps:
+      - number: 1
+        instruction: Pause Immediately
+        is_optional: false
+      - number: 2
+        instruction: "Identify Core Need: Separate the requester's stated solution from their underlying need"
+        is_optional: false
+      - number: 3
+        instruction: "Generate Alternatives: Brainstorm other ways to meet that need"
+        is_optional: false
+      - number: 4
+        instruction: "Verify Source: Consult 2 independent, trusted references with no stake in the outcome"
+        is_optional: false
+      - number: 5
+        instruction: "Tiered Confirmation - High Risk/Money: Require written confirmation from a known, trusted party"
+        is_optional: false
+      - number: 6
+        instruction: "Tiered Confirmation - Low Risk: Verbal confirmation with a disinterested third party"
+        is_optional: true
+      - number: 7
+        instruction: "Time-Box: Complete within 24 hours. If not, default to 'No'"
+        is_optional: false
+      - number: 8
+        instruction: "After-Action Review: Once resolved, note lessons for the principle journal"
+        is_optional: false
+
+  - id: 8
+    name: Information Consumption Audit
+    purpose: Execute Principle 19
+    related_principle_ids: [19]
+    triggers:
+      - trigger_type: time_based
+        condition: Weekly or monthly review
+        keywords: [screen time, wasting time, social media, news, games, streaming, distraction, audit]
+    steps:
+      - number: 1
+        instruction: "Review time spent on: News, Games, Streaming, Social Media, Music"
+        is_optional: false
+      - number: 2
+        instruction: "Assess each category: Did it align with goals (knowledge, controlled relaxation)? Was it time-bound?"
+        is_optional: false
+      - number: 3
+        instruction: "Set/enforce rules - News/Game/Streaming: Max 1 hour/day total, not per category. Use timers"
+        is_optional: false
+      - number: 4
+        instruction: "Music: Allowed as background only during low-focus tasks"
+        is_optional: false
+      - number: 5
+        instruction: Eliminate categories that are pure time-wasters
+        is_optional: false
+      - number: 6
+        instruction: Uninstall or block sources that consistently break these rules
+        is_optional: false
+
+  - id: 9
+    name: State & Energy Management
+    purpose: Execute Principle 3 (Self-Care) and Principle 14 (Separate Emotion)
+    related_principle_ids: [3, 14]
+    triggers:
+      - trigger_type: situation_based
+        condition: Before challenges, between tasks, or when feeling off
+        keywords: [tired, exhausted, stressed, overwhelmed, anxious, foggy, energy, focus, prepare, reset]
+    modes:
+      A:
+        name: "Proactive Preparation (Before a Known Challenge)"
+        trigger: "5-15 minutes before a difficult conversation, high-stakes meeting, important deadline"
+        steps:
+          - number: 1
+            instruction: "Isolate: Go to a quiet space"
+            is_optional: false
+          - number: 2
+            instruction: "Meditate: Conduct a focused, 5-10 minute meditation to acknowledge/release anxiety, reaffirm intent, visualize composure"
+            is_optional: false
+          - number: 3
+            instruction: "Enter: Walk to the event calmly"
+            is_optional: false
+      B:
+        name: "Scheduled Maintenance (Between Tasks)"
+        trigger: "After 90+ minutes of focused work or every 2-3 hours during intensive periods"
+        steps:
+          - number: 1
+            instruction: "Disengage: Physically step away from your workstation"
+            is_optional: false
+          - number: 2
+            instruction: "Choose One: Refuel (healthy snack, mindful eating), Reboot (15-20 min nap), or Replenish (water + look at something distant)"
+            is_optional: false
+          - number: 3
+            instruction: "Return: Resume work after the break. This is non-negotiable maintenance"
+            is_optional: false
+      C:
+        name: "Reactive Reset (Immediate Energy/Focus Shift)"
+        trigger: "Feeling mentally foggy, emotionally stirred, or physically sluggish during a task"
+        steps:
+          - number: 1
+            instruction: "Pause & Diagnose: 'I am feeling [scattered/agitated/sluggish]. I need to be [focused/calm/energized].'"
+            is_optional: false
+          - number: 2
+            instruction: "Execute 2-3 Minute Physical Reset: For Energy (jumping jacks, stairs), For Calm (4-7-8 breathing), For Focus (cold water, fresh air)"
+            is_optional: false
+          - number: 3
+            instruction: "Re-engage: Return to the task with the new intent"
+            is_optional: false

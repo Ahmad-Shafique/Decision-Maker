@@ -1,0 +1,61 @@
+# Example Historical Situation for Analysis
+# Use this format to record past situations
+
+id: example-vendor-negotiation
+date: "2024-01-15"
+
+description: |
+  A key vendor demanded a 40% price increase with only 2 weeks 
+  before our contract expired. No immediate alternatives were 
+  available in the short term.
+
+context:
+  facts:
+    - Vendor demanding 40% price increase
+    - Contract expires in 2 weeks
+    - No alternative vendors available short-term
+    - Current service is critical for operations
+    - Budget for this year is already set
+  
+  emotions:
+    - Frustrated
+    - Pressured
+    - Anxious about timeline
+  
+  stakeholders:
+    - Vendor representative
+    - My team
+    - Budget owner
+    - Operations department
+  
+  constraints:
+    - 2 week deadline
+    - Fixed annual budget
+    - Dependency on current service
+  
+  timeline: 2 weeks until contract expiration
+
+stakes: high
+domain: professional
+
+# What actually happened
+actual_decision: |
+  Agreed to the 20% increase after one round of negotiation,
+  without fully exploring alternatives or documenting the process.
+
+actual_outcome: |
+  Budget overrun for the quarter. Lingering regret about not 
+  having time to find alternatives. Vendor now has leverage
+  for future negotiations.
+
+# Personal reflection
+reflection_notes: |
+  I felt pressured by the timeline and didn't take enough time
+  to step back and think strategically. The emotions drove
+  the decision more than the principles should have allowed.
+
+lessons_learned:
+  - Should have invoked SOP 6 (Consequential Pauses) despite time pressure
+  - Should have triangulated with trusted advisors before deciding
+  - Need to build buffer time for contract renewals going forward
+  - Consider Principle 43 (Leverage Neutral Structures) - written contracts

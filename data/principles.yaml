@@ -1,0 +1,615 @@
+# Principles - Actionable guidelines derived from values
+# All 45 principles with sub-points, categories, tags, and relationships
+
+principles:
+  - id: 1
+    title: Set Clear Direction, Prioritize, and Manage Focus
+    categories: [self_management]
+    tags: [focus, priority, planning, daily, distraction, targets]
+    related_value_ids: [purpose, responsibility]
+    related_sop_ids: [1]
+    sub_principles:
+      - id: a
+        text: Prioritize your To-Do's. This is crucial to avoid being overwhelmed
+      - id: b
+        text: Avoid instant distractions
+      - id: c
+        text: Pay attention to cues, habits etc.
+      - id: d
+        text: Set and review daily prioritized targets (SOP 1 for Daily Targets)
+
+  - id: 2
+    title: Be Honest About Reality, Hold Yourself Accountable, and Avoid Excuses
+    categories: [self_management, growth_learning]
+    tags: [honesty, accountability, reality, excuses, truth]
+    related_value_ids: [justice, realism, responsibility]
+    sub_principles:
+      - id: a
+        text: Never make excuses
+      - id: b
+        text: Never paint a rosier picture of harsh reality
+
+  - id: 3
+    title: Treat Yourself Gently, Meditate, and Focus on Self-Care
+    categories: [health_wellbeing, self_management]
+    tags: [self-care, meditation, patience, wellbeing, emotional, overwhelmed]
+    related_value_ids: [health, self_knowledge]
+    related_sop_ids: [9]
+    sub_principles:
+      - id: a
+        text: Have patience with yourself. Slowly guide yourself away from harmful thoughts
+      - id: b
+        text: Meditate!
+      - id: c
+        text: Fiercely protect your emotional wellbeing. Seek external perspectives when situations are difficult to understand
+        sub_items:
+          - When feeling overwhelmed, share and triangulate with trusted individuals such as close family members to gain perspective and clarity
+      - id: d
+        text: Proactively manage your state and energy through preparation, maintenance, and reset rituals (SOP 9)
+
+  - id: 4
+    title: Practice Calibrated Transparency and Communication
+    categories: [communication, relationships]
+    tags: [transparency, trust, communication, privacy, discretion, updates]
+    related_value_ids: [justice, generosity]
+    related_sop_ids: [3, 4]
+    sub_principles:
+      - id: a
+        text: Grant transparency relative to the level of trust established
+        sub_items:
+          - 100% transparency and updates only to those who have earned 100% trust
+      - id: b
+        text: Promptly communicate all changes/updates with stakeholders
+      - id: c
+        text: Seek clarity, ask questions, and always keep context in mind
+      - id: d
+        text: Protect your own and others' privacy
+      - id: e
+        text: Communicate to establish boundaries that respect the preferences of all parties involved
+      - id: f
+        text: Provide necessary information on a need-to-know basis to ensure effectiveness without compromising discretion
+
+  - id: 5
+    title: Define and Enforce Personal Boundaries
+    categories: [relationships, self_management]
+    tags: [boundaries, limits, toxic, responsibility, helping, white knight]
+    related_value_ids: [autonomy, responsibility]
+    related_sop_ids: [4, 6]
+    sub_principles:
+      - id: a
+        text: Reject the 'white knight' mentality, set boundaries, and focus on those who genuinely seek help
+      - id: b
+        text: Avoid taking on unnecessary responsibility for others' well-being
+      - id: c
+        text: Recognize that you cannot 'save' others unless they genuinely want to be saved/helped
+      - id: d
+        text: Be realistic about your capabilities and the willingness of others to change
+      - id: e
+        text: Prioritize self-care and personal growth, while respecting others' autonomy
+      - id: f
+        text: Offer help to those who genuinely seek it, without overextending yourself
+      - id: g
+        text: Identify and communicate unacceptable behaviors early. Be prepared to withdraw if they are crossed
+
+  - id: 6
+    title: Embrace Failure, Create Value, and Focus on Improvement
+    categories: [growth_learning, professional]
+    tags: [failure, learning, improvement, progress, mistakes, diagnosis, value]
+    related_value_ids: [contribution, achievement]
+    sub_principles:
+      - id: a
+        text: Failures are stepping stones to success. If you are not failing, you are not pushing the envelope
+      - id: b
+        text: You get what you want in life by giving enough people what they want
+      - id: c
+        text: Understand that progress requires diagnosis, and hit testing of the root causes with quality back and forth
+      - id: d
+        text: Try your best to learn and improve, at all times and in all situations
+      - id: e
+        text: Understand that mistakes and failures are part of the learning process
+        sub_items:
+          - Reflect on past experiences, learn from them, and move forward without dwelling excessively on past mistakes
+
+  - id: 7
+    title: Verify Information, Take Pre-emptive Action, and Address Problems Proactively
+    categories: [decision_making]
+    tags: [verify, source, proactive, problems, prevention, information, conflict of interest]
+    related_value_ids: [accuracy, realism]
+    related_sop_ids: [7]
+    sub_principles:
+      - id: a
+        text: Verify new info and its source (Is there a conflict of interest? Has the person successfully completed similar action 3 times? Is the source being logical?)
+      - id: b
+        text: Address problems proactively, distinguishing between systemic failures to be eradicated and learning opportunities to be managed
+
+  - id: 8
+    title: Upgrade Your Network, Maintain Connections, and Collaborate Strategically
+    categories: [relationships, professional]
+    tags: [network, connections, collaboration, success, lifeline, opportunities]
+    related_value_ids: [contribution, generosity]
+    related_sop_ids: [5]
+    sub_principles:
+      - id: a
+        text: Being successful is a lot about the people you hang out with
+      - id: b
+        text: Connections act as a support and fallback (lifeline) system
+      - id: c
+        text: Be open to wonderful opportunities and ideas that come from collaboration with other people
+
+  - id: 9
+    title: Assess Risks, Consequences, Worst-Case Scenarios, and Define Fears
+    categories: [decision_making]
+    tags: [risk, consequences, worst-case, fears, planning, guardrails]
+    related_value_ids: [realism, responsibility]
+    sub_principles:
+      - id: a
+        text: Great risks and great rewards go hand in hand. Uncalculated risks can set you back for decades at a time
+      - id: b
+        text: List out all possible worst-case scenarios and other consequences before taking an action. See if they are tolerable before proceeding
+      - id: c
+        text: Never shy away from thinking about worst case scenarios. Thinking about worst case scenarios make way for developing guardrails against them
+      - id: d
+        text: Face and define your fears (write them down in detail)
+
+  - id: 10
+    title: Recognize Interconnectedness and the Impact of Decisions
+    categories: [decision_making, self_management]
+    tags: [interconnected, impact, behavior, spheres, ripple effect]
+    related_value_ids: [responsibility, self_knowledge]
+    sub_principles:
+      - id: a
+        text: How you behave in one sphere of your life will usually get reflected in other spheres as well. Poor decisions in one area can lead to poor outcomes even in other unrelated areas
+
+  - id: 11
+    title: Research, Plan, and Execute with Precision
+    categories: [professional, decision_making]
+    tags: [planning, research, execution, script, preparation, evaluate]
+    related_value_ids: [accuracy, achievement]
+    related_sop_ids: [2]
+    sub_principles:
+      - id: a
+        text: Good plan should look like a movie script. There should be actors, actions, time, location, etc.
+      - id: b
+        text: Don't jump in arbitrarily without a plan
+      - id: c
+        text: Do the best from your side. Your actions should not primarily be reactions to other people's actions
+        sub_items:
+          - Evaluate the person and/or situation at hand before deciding to invest time and/or best effort from your side
+
+  - id: 12
+    title: Revert to Principles When Feeling Lost
+    categories: [decision_making, self_management]
+    tags: [lost, confused, guidance, principles, anchor]
+    related_value_ids: [purpose]
+    sub_principles: []
+
+  - id: 13
+    title: Trust and Analyze Your Intuition
+    categories: [decision_making]
+    tags: [intuition, gut feeling, triangulation, analysis, data-driven]
+    related_value_ids: [self_knowledge, realism]
+    sub_principles:
+      - id: a
+        text: When something is nagging in the back of the mind, it is most likely super important. Analyze the intuition with
+        sub_items:
+          - Triangulation involving believable smart people who disagree with you
+          - Objective analysis of the situation with all the given inputs
+          - Data-driven decision making with situational awareness
+
+  - id: 14
+    title: Separate Emotion from High-Stakes Decisions and Mandate Reflective Pauses
+    categories: [decision_making, self_management]
+    tags: [emotion, high-stakes, pause, reflection, impulsive, humility, ego]
+    related_value_ids: [humility, self_knowledge]
+    related_sop_ids: [6, 9]
+    sub_principles:
+      - id: a
+        text: Pause, reflect, and avoid impulsive decisions. Impulsive decisions have a tendency to leave lasting effects
+      - id: b
+        text: Manage emotions and maintain a mission-focused mindset, and practice humility
+      - id: c
+        text: Don't let your own emotions dictate actions that affect the overall mission
+      - id: d
+        text: Foster humility and self-awareness, curbing the ego to allow growth and understanding
+      - id: e
+        text: For high-stakes decisions, pause to document the facts and emotions separately before acting
+
+  - id: 15
+    title: Practice Active Listening, Engage with Diverse Perspectives, and Empathize
+    categories: [communication, relationships]
+    tags: [listening, perspectives, empathy, understanding, cues, humility]
+    related_value_ids: [generosity, humility]
+    sub_principles:
+      - id: a
+        text: Pay attention to subtle cues, and avoid forming opinions before the other person has finished communicating
+        sub_items:
+          - Follow up with questions to ensure understanding
+      - id: b
+        text: Seek out believable people who will challenge your perceptions
+        sub_items:
+          - Observe, listen, and have the humility to understand believable others
+      - id: c
+        text: Always try to empathize and understand others
+        sub_items:
+          - Be mindful in order to not let your empathy for others overwhelm yourself
+      - id: d
+        text: Absorb what others share without forcing it into your pre-existing worldview
+
+  - id: 16
+    title: Form Good Habits and Maintain Self-Discipline
+    categories: [self_management]
+    tags: [habits, discipline, success, consistency]
+    related_value_ids: [responsibility, achievement]
+    sub_principles:
+      - id: a
+        text: Self-discipline is crucial for success and for navigating dangerous situations
+
+  - id: 17
+    title: Power Through Pain and Maintain a Higher-Level Perspective
+    categories: [self_management, health_wellbeing]
+    tags: [pain, perseverance, perspective, control, phases]
+    related_value_ids: [challenge, purpose]
+    sub_principles:
+      - id: a
+        text: Slow down and focus on things you can control
+      - id: b
+        text: Pain occurs in phases. You just need to power through intense episodes
+      - id: c
+        text: Have a higher-level perspective and push yourself
+
+  - id: 18
+    title: Be Cautious with Promises and Trust
+    categories: [relationships, decision_making]
+    tags: [promises, trust, caution, premature, verify]
+    related_value_ids: [dependability, realism]
+    related_sop_ids: [7]
+    sub_principles:
+      - id: a
+        text: Don't make premature promises
+      - id: b
+        text: Don't trust people blindly
+
+  - id: 19
+    title: Direct Your Information Consumption Towards Your Goals with Discipline
+    categories: [self_management]
+    tags: [information, consumption, DIDO, GIGO, discipline, time limits, audit]
+    related_value_ids: [purpose, moderation]
+    related_sop_ids: [8]
+    sub_principles:
+      - id: a
+        text: Use DIDO (Diamond in Diamond out) to your advantage in achieving your goals
+      - id: b
+        text: Avoid GIGO (Garbage in Garbage out)
+      - id: c
+        text: Set and enforce strict time limits for non-essential, passive, or entertainment-focused consumption
+      - id: d
+        text: Regularly audit your information inputs and eliminate sources that are wasteful, emotionally draining, or misaligned
+
+  - id: 20
+    title: Pay Attention to Hints, Prioritize Family, and Address Toxic Situations
+    categories: [family, relationships]
+    tags: [hints, family, toxic, problems, snowball, escalate]
+    related_value_ids: [family, generosity]
+    sub_principles:
+      - id: a
+        text: Pay attention to hints from other people
+      - id: b
+        text: Don't let things go out of hand
+      - id: c
+        text: Prioritize family above all else
+      - id: d
+        text: Do not tolerate problems or toxic situations
+      - id: e
+        text: "Understand the snowball effect: Be mindful that small issues may escalate into life-threatening situations"
+
+  - id: 21
+    title: Plan and Execute Your Downtime and Recovery Regularly
+    categories: [health_wellbeing, self_management]
+    tags: [downtime, recovery, rest, schedule, disconnect]
+    related_value_ids: [health, moderation]
+    sub_principles:
+      - id: a
+        text: Treat your downtimes just like your important goals and to-do's, regularly
+      - id: b
+        text: Schedule time for rest, disconnection, and activities that replenish energy without a productivity goal
+
+  - id: 22
+    title: Embrace Adaptability, Seek Mentors, and Learn from Mistakes
+    categories: [growth_learning]
+    tags: [adaptability, mentors, learning, evolution, role models]
+    related_value_ids: [self_knowledge, humility]
+    sub_principles:
+      - id: a
+        text: Maximize your evolution. Remember, you either evolve or die
+      - id: b
+        text: Seek out mentors and role models. Only a fool learns from just his own mistakes
+
+  - id: 23
+    title: Commit Fully to Interventions and Be Prepared for Challenges
+    categories: [professional, decision_making]
+    tags: [commitment, intervention, challenges, resistance, consequences]
+    related_value_ids: [responsibility, challenge]
+    sub_principles:
+      - id: a
+        text: Intervene only for the right reasons and with full commitment
+      - id: b
+        text: Be prepared to fight the crocodile in water when intervening (be ready for resistance and consequences)
+
+  - id: 24
+    title: Be Open to Adapting Goals in Case of Severe Change in Circumstances
+    categories: [decision_making, self_management]
+    tags: [adapt, goals, circumstances, change, flexibility]
+    related_value_ids: [realism, purpose]
+    sub_principles: []
+
+  - id: 25
+    title: Tackle Challenges Sequentially and Thoroughly
+    categories: [professional, self_management]
+    tags: [sequential, thorough, completion, problems, multiply, 100%]
+    related_value_ids: [achievement, responsibility]
+    sub_principles:
+      - id: a
+        text: Solve one problem at a time. Otherwise, they multiply and become impossible to tackle
+      - id: b
+        text: Ensure thorough completion of initiatives
+        sub_items:
+          - An initiative is not considered complete until it reaches 100% completion
+
+  - id: 26
+    title: Seize Aligned Opportunities Swiftly and Decisively
+    categories: [decision_making]
+    tags: [opportunity, swift, decisive, alignment, action]
+    related_value_ids: [achievement, purpose]
+    sub_principles:
+      - id: a
+        text: When an opportunity aligns with your long-term objectives, act quickly, as opportunities may not be available for long
+
+  - id: 27
+    title: Utilize Physical and Mental Exercise to Combat Fatigue and Expand Your Limits
+    categories: [health_wellbeing]
+    tags: [exercise, fatigue, resilience, endurance, limits, confidence]
+    related_value_ids: [health, challenge]
+    sub_principles:
+      - id: a
+        text: When feeling mentally tired, engage in mentally exhausting tasks to build resilience
+      - id: b
+        text: When feeling physically tired, go for a run to improve endurance and overall well-being
+      - id: c
+        text: Embrace challenges to increase self-confidence and expand your capabilities
+
+  - id: 28
+    title: Uphold Professional Integrity and Cultivate Reputation
+    categories: [professional]
+    tags: [integrity, reputation, confidentiality, quality, respect, office politics]
+    related_value_ids: [justice, dependability]
+    sub_principles:
+      - id: a
+        text: Understand the value of your professional and personal reputation. Build and protect it through integrity, quality work, and respect
+      - id: b
+        text: Uphold professional confidentiality by refraining from discussing office politics or sensitive matters externally
+
+  - id: 29
+    title: Value Knowledge and Understanding Over Material Gains
+    categories: [growth_learning]
+    tags: [knowledge, understanding, material, wealth, wisdom]
+    related_value_ids: [self_knowledge, purpose]
+    sub_principles:
+      - id: a
+        text: Prioritize gaining a deeper understanding of the world and how it works over the pursuit of material wealth
+
+  - id: 30
+    title: Adopt a Solutions-Oriented Mindset with Meticulous Planning and Elegance
+    categories: [professional, decision_making]
+    tags: [solutions, planning, elegance, nuance, design]
+    related_value_ids: [accuracy, achievement]
+    sub_principles:
+      - id: a
+        text: "Move forward with a 'Let's find solutions' mentality"
+      - id: b
+        text: When addressing an issue, formulate solutions that are not only effective but also elegantly designed
+      - id: c
+        text: Seek to understand the nuances of the problem and apply a solution tailored to its unique context
+
+  - id: 31
+    title: Refine Your Questioning Approach
+    categories: [communication]
+    tags: [questions, quality, communication, inquiry]
+    related_value_ids: [accuracy, humility]
+    sub_principles:
+      - id: a
+        text: Limit the quantity and improve the quality of your inquiries for more effective communication
+
+  - id: 32
+    title: Prioritize Financial Management
+    categories: [financial]
+    tags: [financial, money, stewardship, stability]
+    related_value_ids: [responsibility, realism]
+    sub_principles:
+      - id: a
+        text: Emphasize sound monetary stewardship to ensure personal and professional stability and success
+
+  - id: 33
+    title: Foster Clear Communication and Responsibility
+    categories: [communication, professional]
+    tags: [communication, responsibility, clarity, expectations, probe, transparency, threads, accountability]
+    related_value_ids: [responsibility, accuracy]
+    sub_principles:
+      - id: a
+        text: Clearly assign responsibilities to eliminate confusion about expectations
+      - id: b
+        text: Remember who has what responsibilities to ensure the team functions effectively
+      - id: c
+        text: Watch out for 'Job Slip' to prevent confusion over role responsibilities
+      - id: d
+        text: Take 15 minutes each day to write a summary of your progress and plan for the next steps
+      - id: e
+        text: Avoid making assumptions about the correctness of people's answers. Probe deeply to confirm
+      - id: f
+        text: Pay attention to verbal cues when others are communicating with you
+      - id: g
+        text: Encourage transparency in all interactions and make your investigative efforts known
+      - id: h
+        text: Pull at all threads of suspicion or doubt to ensure nothing critical is overlooked
+      - id: i
+        text: Hold yourself and your team accountable, and appreciate it when they do the same
+      - id: j
+        text: Ensure agreed-upon tasks are completed as decided, unless there's mutual agreement to change
+
+  - id: 34
+    title: Build a Culture of Ownership and Growth
+    categories: [professional, relationships]
+    tags: [ownership, growth, team, fairness, care, challenging]
+    related_value_ids: [contribution, responsibility]
+    sub_principles:
+      - id: a
+        text: Encourage an ownership mentality where everyone takes responsibility for their actions and results
+      - id: b
+        text: Force yourself and your team to tackle challenging tasks to facilitate growth
+      - id: c
+        text: "Don't treat everyone the same; tailor interactions based on individuals' unique strengths and needs"
+      - id: d
+        text: "Don't let yourself get squeezed. Encourage fairness and balance in work distribution"
+      - id: e
+        text: Care about your team members and show genuine interest in their wellbeing
+      - id: f
+        text: Avoid giving orders for the sake of being followed; strive for mutual understanding
+
+  - id: 35
+    title: Enhance Situational Awareness and Decision-Making
+    categories: [decision_making, professional]
+    tags: [situational awareness, probe, understanding, machine, problems, escalate]
+    related_value_ids: [accuracy, realism]
+    sub_principles:
+      - id: a
+        text: Probe deeply to understand what you can expect from your 'machine' (team/organization/system)
+      - id: b
+        text: Strive to achieve a threshold level of understanding in all matters to prevent misinformation
+      - id: c
+        text: Maintain proximity to your team to better understand their strengths, weaknesses, and work dynamics
+      - id: d
+        text: Probe beneath the surface of reports to identify potential problems before they occur
+      - id: e
+        text: Encourage the team to escalate their problems to you freely
+
+  - id: 36
+    title: Focus on the Process
+    categories: [self_management, professional]
+    tags: [process, outcome, effort, trust]
+    related_value_ids: [responsibility, purpose]
+    sub_principles:
+      - id: a
+        text: Emphasize attaching yourself to the process, not just the outcome. Trust the process and always put forth your best effort
+
+  - id: 37
+    title: Prioritize Effective and Strategic Communication
+    categories: [communication]
+    tags: [strategic, precise, minimal, necessary, crucial, communication]
+    related_value_ids: [accuracy, contribution]
+    sub_principles:
+      - id: a
+        text: "Communication must be strategic: aligned with goals and audience"
+      - id: b
+        text: "Communication must be precise: clear, concise, and unambiguous"
+      - id: c
+        text: "Communication must be minimal: avoid unnecessary detail and tangents"
+      - id: d
+        text: "Communication must be necessary: it should have a clear purpose"
+      - id: e
+        text: Over-communication can be as problematic as under-communication, but when a conversation is crucial, never hold back
+
+  - id: 38
+    title: Nurture Personal Relationships
+    categories: [family, relationships]
+    tags: [relationships, family, connect, time]
+    related_value_ids: [family, generosity]
+    sub_principles:
+      - id: a
+        text: Regardless of where you are or how busy your schedule may be, always make time to connect with your family
+
+  - id: 39
+    title: Precisely Address Problems by Identifying What, Who, and When
+    categories: [professional, decision_making]
+    tags: [problem solving, root cause, who, when, clarity, accountability]
+    related_value_ids: [accuracy, responsibility]
+    sub_principles:
+      - id: a
+        text: "What: Determine the root cause of a problem to focus on actionable solutions"
+      - id: b
+        text: "Who: Identify the responsible party for the root cause, ensuring clarity"
+      - id: c
+        text: "When: Pinpoint the most appropriate time to raise the issue, considering urgency and context"
+      - id: d
+        text: Steer clear of vague generalizations to ensure clarity, precision, and accountability
+
+  - id: 40
+    title: Create and Refine Your Structured Framework (Your 'Machine')
+    categories: [self_management, decision_making]
+    tags: [machine, framework, systemize, refine, feedback, decision-making, design]
+    related_value_ids: [purpose, achievement]
+    sub_principles:
+      - id: a
+        text: Build your machine. Visualize alternate machines and outcomes. Choose the best one
+      - id: b
+        text: Systemize your principles and use them to build your machine. Constantly refine based on feedback
+      - id: c
+        text: Integrate great decision-making processes into your overall machine
+      - id: d
+        text: Put yourself in the position of pain for a while to gain understanding of what you are designing for
+
+  - id: 41
+    title: Analyze Financial Transactions with Knowledgeable Others
+    categories: [financial, decision_making]
+    tags: [financial, transaction, analysis, consult, knowledgeable]
+    related_value_ids: [realism, responsibility]
+    sub_principles:
+      - id: a
+        text: Before making a significant financial transaction, analyze the necessity as well as merits/demerits with knowledgeable others
+
+  - id: 42
+    title: Prioritize Long-Term Alignment Over Short-Term Resolution
+    categories: [decision_making]
+    tags: [long-term, short-term, alignment, objectives, discipline]
+    related_value_ids: [purpose, realism]
+    sub_principles:
+      - id: a
+        text: Evaluate whether investing time in a dispute or opportunity advances your core objectives
+      - id: b
+        text: If not, have the discipline to step aside or defer action
+
+  - id: 43
+    title: Leverage Neutral Structures
+    categories: [professional, relationships]
+    tags: [neutral, structures, mediator, legal, contracts, fairness, conflict]
+    related_value_ids: [justice, realism]
+    sub_principles:
+      - id: a
+        text: In conflicts or complex agreements, do not rely solely on goodwill
+      - id: b
+        text: Use objective frameworks—mediators, legal counsel, written contracts—to create clarity and protect interests
+
+  - id: 44
+    title: Break Strategic Impasses with Direct, Personal Action
+    categories: [professional, decision_making]
+    tags: [impasse, direct action, personal, stuck, intervention, momentum]
+    related_value_ids: [achievement, responsibility]
+    sub_principles:
+      - id: a
+        text: When progress is stuck in abstraction or bureaucracy, consider a direct, hands-on intervention
+      - id: b
+        text: Personal presence, direct inquiry, and taking immediate responsibility can reset dynamics and create momentum
+
+  - id: 45
+    title: Conduct Regular Reviews with Integration and Celebration
+    categories: [self_management, growth_learning]
+    tags: [review, weekly, journal, celebrate, gratitude, diagnose, integrate]
+    related_value_ids: [self_knowledge, purpose]
+    related_sop_ids: [1]
+    sub_principles:
+      - id: a
+        text: "Maintain a journal of 'principle-forming moments' (pain/discomfort + reflection)"
+      - id: b
+        text: "Integrate weekly reviews: celebrate small wins, diagnose systemic gaps, and adjust plans"
+      - id: c
+        text: This practice sustains the entire system
+      - id: d
+        text: Acknowledge one specific point of gratitude for the week

@@ -1,0 +1,125 @@
+# Core Values - The foundation of decision-making
+# These values are immutable and guide all principles
+
+core_values:
+  - id: justice
+    name: Justice
+    description: To be ethically good - acting with fairness, integrity, and moral correctness
+    priority: 1
+    is_core: true
+
+  - id: contribution
+    name: Contribution
+    description: To enable others (help others) - making a positive impact on people's lives
+    priority: 2
+    is_core: true
+
+  - id: family
+    name: Family
+    description: To have a thriving family - nurturing strong family bonds and wellbeing
+    priority: 3
+    is_core: true
+
+  - id: generosity
+    name: Generosity
+    description: To treat people as well as possible (avoid mistreating them) - being kind and considerate
+    priority: 4
+    is_core: true
+
+# Optional values that may be activated based on context
+optional_values:
+  - id: accuracy
+    name: Accuracy
+    description: Precision and correctness in thinking and action
+    priority: 10
+    is_core: false
+
+  - id: achievement
+    name: Achievement
+    description: Accomplishing meaningful goals and milestones
+    priority: 11
+    is_core: false
+
+  - id: autonomy
+    name: Autonomy
+    description: Independence and self-direction in decisions
+    priority: 12
+    is_core: false
+
+  - id: challenge
+    name: Challenge
+    description: Embracing difficult tasks that promote growth
+    priority: 13
+    is_core: false
+
+  - id: dependability
+    name: Dependability
+    description: Being reliable and trustworthy
+    priority: 14
+    is_core: false
+
+  - id: forgiveness
+    name: Forgiveness
+    description: Letting go of resentment and giving second chances
+    priority: 15
+    is_core: false
+
+  - id: genuineness
+    name: Genuineness
+    description: Authenticity and sincerity in interactions
+    priority: 16
+    is_core: false
+
+  - id: health
+    name: Health
+    description: Physical and mental wellbeing
+    priority: 17
+    is_core: false
+
+  - id: humility
+    name: Humility
+    description: Modest view of own importance, openness to learning
+    priority: 18
+    is_core: false
+
+  - id: moderation
+    name: Moderation
+    description: Balance and avoiding extremes
+    priority: 19
+    is_core: false
+
+  - id: nonconformity
+    name: Nonconformity
+    description: Willingness to go against conventions when warranted
+    priority: 20
+    is_core: false
+
+  - id: purpose
+    name: Purpose
+    description: Having clear direction and meaning in life
+    priority: 21
+    is_core: false
+
+  - id: realism
+    name: Realism
+    description: Seeing things as they actually are
+    priority: 22
+    is_core: false
+
+  - id: responsibility
+    name: Responsibility
+    description: Owning actions and their consequences
+    priority: 23
+    is_core: false
+
+  - id: self_knowledge
+    name: Self-knowledge
+    description: Understanding one's own strengths, weaknesses, and motivations
+    priority: 24
+    is_core: false
+
+  - id: tolerance
+    name: Tolerance
+    description: Accepting differences in others
+    priority: 25
+    is_core: false
