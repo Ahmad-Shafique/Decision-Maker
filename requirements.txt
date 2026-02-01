@@ -4,5 +4,7 @@ typer
 rich
 jinja2
 python-dotenv
+fastapi
+uvicorn
 requests
 pytest
