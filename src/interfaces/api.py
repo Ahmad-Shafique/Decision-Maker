@@ -5,11 +5,17 @@ decision system via REST endpoints.
 """
 
 from fastapi import FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from contextlib import asynccontextmanager
 from pathlib import Path
 import os
+import sys
 import uvicorn
+
+# Add project root to sys.path
+sys.path.append(str(Path(__file__).parent.parent.parent))
 
 from src.domain.situations import Situation
 from src.knowledge.knowledge_base import KnowledgeBase
@@ -34,7 +40,6 @@ async def lifespan(app: FastAPI):
     
     if not data_path.exists():
         print("Error: Could not find data directory.")
-        # In a real app we might raise error, but here we let it run with empty
         
     kb = KnowledgeBase(data_path=data_path)
     kb.load()
@@ -50,6 +55,19 @@ app = FastAPI(
     description="API for analyzing situations against personal principles.",
     lifespan=lifespan
 )
+
+# Mount Static Files
+static_path = Path("src/interfaces/static")
+# If running from different CWD, adjust logic
+if not static_path.exists():
+    static_path = Path(__file__).parent / "static"
+
+app.mount("/static", StaticFiles(directory=str(static_path), html=True), name="static")
+
+@app.get("/")
+async def root():
+    """Redirect to dashboard."""
+    return RedirectResponse(url="/static/index.html")
 
 class AnalysisRequest(BaseModel):
     description: str

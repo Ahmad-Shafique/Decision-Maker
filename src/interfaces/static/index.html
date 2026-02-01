@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Principles-Based Decision System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Decision Architect</h1>
+            <div id="status-indicator" class="status offline">System Offline</div>
+        </header>
+
+        <main>
+            <section class="input-section glass-panel">
+                <h2>Describe the Situation</h2>
+                <textarea id="situation-input" placeholder="e.g., A vendor is demanding a 40% price increase with a tight deadline..."></textarea>
+                <button id="analyze-btn" class="primary-btn">
+                    <span class="btn-text">Analyze Situation</span>
+                    <span class="loader hidden"></span>
+                </button>
+            </section>
+
+            <section id="results-section" class="results-section hidden">
+                <div class="glass-panel recommendation-panel">
+                    <h3>Thinking Process</h3>
+                    <div id="result-reasoning" class="markdown-content"></div>
+                </div>
+
+                <div class="glass-panel action-panel">
+                    <h3>Recommended Action</h3>
+                    <div id="result-recommendation" class="markdown-content"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col glass-panel">
+                        <h3>Applied Principles</h3>
+                        <ul id="principles-list" class="styled-list"></ul>
+                    </div>
+                    <div class="col glass-panel" id="sops-container">
+                        <h3>Triggered SOPs</h3>
+                        <ul id="sops-list" class="styled-list"></ul>
+                    </div>
+                </div>
+                
+                <div class="glass-panel meta-panel">
+                    <div class="meta-item">
+                        <span class="label">Confidence</span>
+                        <div class="progress-bar">
+                            <div id="confidence-bar" class="fill"></div>
+                        </div>
+                        <span id="confidence-value" class="value">0%</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="label">Value Alignment</span>
+                        <span id="alignment-value" class="value">N/A</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
