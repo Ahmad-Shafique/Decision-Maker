@@ -74,6 +74,25 @@ class DecisionEngine:
         # Take top 3
         applicable = final_matches[:3]
         
+        # Prepare Metadata
+        strategies_succeeded = []
+        # Check which strategies contributed to final top 3 (heuristic check)
+        # Note: Ideally we'd track source in PrincipleMatch
+        strategies_attempted = ["semantic", "keyword"]
+        
+        from src.engine.models import MatchingMetadata
+        
+        # Assume Gemini for now as we don't have return signal from embedding service yet
+        # Phase 2 improvement: make embedding service return metadata
+        llm_provider = "gemini" 
+        
+        metadata = MatchingMetadata(
+            strategies_attempted=strategies_attempted,
+            strategies_succeeded=strategies_attempted, # simplified
+            llm_provider_used=llm_provider,
+            fallback_triggered=False
+        )
+        
         # 2. Get triggered SOPs
         triggered_sops = self.get_applicable_sops(situation)
         
@@ -95,7 +114,8 @@ class DecisionEngine:
             recommendation=recommendation,
             value_alignment=alignment,
             confidence=confidence,
-            reasoning=reasoning
+            reasoning=reasoning,
+            matching_metadata=metadata
         )
     
     def get_applicable_principles(
