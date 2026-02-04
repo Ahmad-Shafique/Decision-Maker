@@ -5,6 +5,7 @@ decision system via REST endpoints.
 """
 
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse, StreamingResponse
 from pydantic import BaseModel
@@ -56,6 +57,25 @@ app = FastAPI(
     title="Principles-Based Decision System API",
     description="API for analyzing situations against personal principles.",
     lifespan=lifespan
+)
+
+# Add CORS middleware for mobile app access
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # In production, replace with specific mobile app URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # ... Static mount ...
@@ -173,8 +193,10 @@ async def list_principles():
 
 def start():
     """Start the API server."""
-    # Custom port 2947 as requested
-    uvicorn.run("src.interfaces.api:app", host="127.0.0.1", port=2947, reload=True)
+    # Read port from environment (Render sets this)
+    port = int(os.environ.get("PORT", 2947))
+    # Host 0.0.0.0 is required for Render/Cloud
+    uvicorn.run("src.interfaces.api:app", host="0.0.0.0", port=port)
 
 if __name__ == "__main__":
     start()

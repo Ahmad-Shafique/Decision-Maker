@@ -16,7 +16,7 @@ The system follows a **modular, layered architecture** with clear separation of 
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                   Interface Layer                        │
-│              (CLI, API, Web Dashboard)                  │
+│         (CLI, API, Web Dashboard, Mobile App)           │
 ├─────────────────────────────────────────────────────────┤
 │                 Application Services                     │
 │    (Decision Engine, Historical Analyzer, Reporting)    │
@@ -28,6 +28,13 @@ The system follows a **modular, layered architecture** with clear separation of 
 │        (Knowledge Base, Repository, Config)             │
 └─────────────────────────────────────────────────────────┘
 ```
+
+## Version Control Policy
+
+**Automatic commits** are required after each phase/module completion:
+- See workflow: `.agent/workflows/post-phase-commit.md`
+- Commit message format: `Complete [Phase Name]: [Brief description]`
+- Push to `main` branch after each phase
 
 ## Key Design Decisions
 

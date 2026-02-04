@@ -141,3 +141,11 @@ cython_debug/
 
 # Agent metadata is INCLUDED (not listed here)
 # .agent/ is NOT ignored
+
+# Mobile app (React Native / Expo)
+node_modules/
+.expo/
+*.apk
+*.aab
+*.ipa
+*.hbc
