@@ -24,15 +24,21 @@ from src.domain.situations import Situation
 from src.knowledge.knowledge_base import KnowledgeBase
 from src.engine.decision_engine import DecisionEngine
 from src.engine.models import DecisionResult
+from src.analyzer.historical_analyzer import HistoricalAnalyzer
+from src.analyzer.whatif_analyzer import WhatIfAnalyzer
+from src.domain.situations import HistoricalSituation
+from src.analyzer.models import AnalysisReport
 
 # Global components
 kb: KnowledgeBase = None
 engine: DecisionEngine = None
+historical_analyzer: HistoricalAnalyzer = None
+whatif_analyzer: WhatIfAnalyzer = None
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Initialize system components on startup."""
-    global kb, engine
+    global kb, engine, historical_analyzer, whatif_analyzer
     
     # Initialize KB
     # Assuming run from root
@@ -50,6 +56,10 @@ async def lifespan(app: FastAPI):
     # Initialize Engine
     engine = DecisionEngine(knowledge_base=kb)
     
+    # Initialize Analyzers
+    historical_analyzer = HistoricalAnalyzer(decision_engine=engine)
+    whatif_analyzer = WhatIfAnalyzer(default_engine=engine)
+    
     yield
     # Cleanup
 
@@ -62,90 +72,12 @@ app = FastAPI(
 # Add CORS middleware for mobile app access
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with specific mobile app URL
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-from fastapi.middleware.cors import CORSMiddleware
-
-app.add_middleware(
-    CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ... Static mount ...
-
-async def analysis_generator(description: str):
-    """Generates SSE events for the analysis process."""
-    yield f"data: {json.dumps({'status': 'matching_started', 'message': 'Starting analysis...'})}\n\n"
-    await asyncio.sleep(0.5) # Simulate work
-    
-    # 1. Semantic
-    yield f"data: {json.dumps({'status': 'semantic_processing', 'message': 'Generating embeddings...'})}\n\n"
-    # Actually run the match?
-    # For streaming, we might need to break down the engine.evaluate method or just call it and report 'done'.
-    # Since evaluate is synchronous, it blocks.
-    # To truly stream, we'd need to make engine async or run in thread.
-    
-    # Run analysis in threadpool to avoid blocking event loop
-    loop = asyncio.get_event_loop()
-    result = await loop.run_in_executor(None, lambda: engine.evaluate(Situation(description=description)))
-    
-    yield f"data: {json.dumps({'status': 'semantic_done', 'message': 'Semantic matching complete'})}\n\n"
-    await asyncio.sleep(0.3)
-    
-    yield f"data: {json.dumps({'status': 'keyword_done', 'message': 'Keyword matching complete'})}\n\n"
-    
-    # Send final result
-    # We need to serialize the result. Models are dataclasses, Pydantic can handle if we convert.
-    # Or just dict.
-    
-    # Quick serialization helper
-    def serialize(obj):
-        if hasattr(obj, '__dict__'):
-            return obj.__dict__
-        return str(obj)
-
-    # Serialize complex object
-    # We'll use pydantic's jsonable_encoder if available, or simple dict dump for now
-    # Since DecisionResult is a dataclass, asdict works
-    from dataclasses import asdict
-    res_dict = asdict(result)
-    # Fix nested dataclasses and enums if any (PrincipleMatch, etc) is recursive
-    # asdict handles recursion for dataclasses.
-    # But explicit conversion for safe JSON:
-    
-    # Convert 'applicable_principles' list of PrincipleMatch
-    # Convert 'triggered_sops' list of SOP
-    
-    # Just sending the whole result as 'complete'
-    # Use a custom encoder for json dumps
-    class EnhancedJSONEncoder(json.JSONEncoder):
-        def default(self, o):
-            if hasattr(o, '__dict__'):
-                return o.__dict__
-            return super().default(o)
-            
-    final_json = json.dumps({'status': 'complete', 'result': res_dict}, cls=EnhancedJSONEncoder)
-    yield f"data: {final_json}\n\n"
-
-@app.get("/analyze/stream")
-async def analyze_stream(description: str):
-    """Stream analysis progress using SSE."""
-    return StreamingResponse(analysis_generator(description), media_type="text/event-stream")
-
-# Mount Static Files
-static_path = Path("src/interfaces/static")
-# If running from different CWD, adjust logic
-if not static_path.exists():
-    static_path = Path(__file__).parent / "static"
-
-app.mount("/static", StaticFiles(directory=str(static_path), html=True), name="static")
 
 @app.get("/")
 async def root():
@@ -170,18 +102,66 @@ async def analyze_situation(request: AnalysisRequest):
         raise HTTPException(status_code=503, detail="System not initialized")
         
     try:
-        # Create situation object
         import uuid
         situation = Situation(
             id=str(uuid.uuid4()),
             description=request.description
         )
         
-        # Evaluate
         result = engine.evaluate(situation)
         return result
         
     except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/analyze/whatif", response_model=DecisionResult)
+async def analyze_whatif(request: AnalysisRequest):
+    """Analyze a situation using optional custom principles (currently just defaults)."""
+    if not whatif_analyzer:
+         raise HTTPException(status_code=503, detail="System not initialized")
+    
+    try:
+        import uuid
+        situation = Situation(
+            id=str(uuid.uuid4()),
+            description=request.description
+        )
+        
+        # Future: accept custom principles in request body
+        result = whatif_analyzer.analyze(situation)
+        return result
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+class HistoricalAnalysisRequest(BaseModel):
+    description: str
+    actual_decision: str
+    actual_outcome: str
+
+@app.post("/analyze/historical", response_model=AnalysisReport)
+async def analyze_historical(request: HistoricalAnalysisRequest):
+    """Analyze a past decision against principles."""
+    if not historical_analyzer:
+         raise HTTPException(status_code=503, detail="System not initialized")
+         
+    try:
+        import uuid
+        situation = HistoricalSituation(
+            id=str(uuid.uuid4()),
+            description=request.description,
+            actual_decision=request.actual_decision,
+            actual_outcome=request.actual_outcome
+        )
+        
+        report = historical_analyzer.analyze(situation)
+        return report
+        
+    except Exception as e:
+        # print error for debugging
+        print(f"Error in /analyze/historical: {e}")
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/principles")
@@ -191,11 +171,34 @@ async def list_principles():
         raise HTTPException(status_code=503, detail="System not initialized")
     return kb.principles
 
+@app.get("/sops")
+async def list_sops():
+    """List all available SOPs."""
+    if not kb:
+        raise HTTPException(status_code=503, detail="System not initialized")
+    return kb.sops
+
+@app.get("/sops/{sop_id}")
+async def get_sop(sop_id: int):
+    """Get a specific SOP by ID."""
+    if not kb:
+        raise HTTPException(status_code=503, detail="System not initialized")
+    
+    sop = kb.get_sop(sop_id)
+    if not sop:
+        raise HTTPException(status_code=404, detail="SOP not found")
+    return sop
+
+# Mount Static Files
+static_path = Path("src/interfaces/static")
+if not static_path.exists():
+    static_path = Path(__file__).parent / "static"
+
+app.mount("/static", StaticFiles(directory=str(static_path), html=True), name="static")
+
 def start():
     """Start the API server."""
-    # Read port from environment (Render sets this)
     port = int(os.environ.get("PORT", 2947))
-    # Host 0.0.0.0 is required for Render/Cloud
     uvicorn.run("src.interfaces.api:app", host="0.0.0.0", port=port)
 
 if __name__ == "__main__":

@@ -288,3 +288,49 @@ class KnowledgeBase(BaseModel):
             elif any(query_lower in tag.lower() for tag in p.tags):
                 matching.append(p)
         return matching
+
+
+class KnowledgeBaseFactory:
+    """Factory for creating KnowledgeBase instances."""
+    
+    @staticmethod
+    def create_from_yaml(data_path: Path) -> "KnowledgeBase":
+        """Create a KB from YAML files.
+        
+        Args:
+            data_path: Path to the data directory.
+            
+        Returns:
+            Loaded KnowledgeBase.
+        """
+        kb = KnowledgeBase(data_path=data_path)
+        kb.load()
+        return kb
+        
+    @staticmethod
+    def create_from_objects(
+        principles: list[Principle],
+        sops: list[SOP] = None,
+        values: ValueSet = None
+    ) -> "KnowledgeBase":
+        """Create a KB from in-memory objects.
+        
+        Useful for testing or what-if analysis with custom principles.
+        
+        Args:
+            principles: List of principles.
+            sops: List of SOPs (optional).
+            values: ValueSet (optional).
+            
+        Returns:
+            Populated KnowledgeBase.
+        """
+        # Use a dummy path since we're populating in-memory
+        kb = KnowledgeBase(data_path=Path("memory"))
+        kb.principles = principles
+        if sops:
+            kb.sops = sops
+        if values:
+            kb.values = values
+        kb._loaded = True
+        return kb

@@ -24,11 +24,19 @@ Built using `FastAPI` and `uvicorn`.
 - **Host**: 127.0.0.1 (Localhost)
 
 ### Endpoints
+
+### Endpoints
 - `GET /health`: System status check.
 - `GET /principles`: List all loaded principles.
+- `GET /sops`: List all SOPs.
+- `GET /sops/{id}`: Get specific SOP details.
 - `POST /analyze`: Core decision endpoint.
   - **Payload**: `{"description": "Situation text..."}`
   - **Response**: Full `DecisionResult` JSON object.
+- `POST /analyze/whatif`: Simulation endpoint (currently same as analyze, prepared for custom principles).
+- `POST /analyze/historical`: Historical analysis endpoint.
+  - **Payload**: `{"description": "...", "actual_decision": "...", "actual_outcome": "..."}`
+  - **Response**: `AnalysisReport` JSON object (gaps, lessons, score).
 
 ### Architecture provided
-- **Lifespan Context**: Initializes `KnowledgeBase` and `DecisionEngine` (with Semantic Matching) on startup to ensure high performance (loading happens once).
+- **Lifespan Context**: Initializes `KnowledgeBase`, `DecisionEngine`, `HistoricalAnalyzer`, and `WhatIfAnalyzer` on startup.

@@ -22,12 +22,39 @@
         </header>
 
         <main>
-            <section class="input-section glass-panel">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="live">Live Analysis</button>
+                <button class="tab-btn" data-tab="historical">Historic Review</button>
+            </div>
+
+            <!-- Live Analysis Input -->
+            <section id="live-section" class="input-section glass-panel">
                 <h2>Describe the Situation</h2>
                 <textarea id="situation-input"
                     placeholder="e.g., A vendor is demanding a 40% price increase with a tight deadline..."></textarea>
                 <button id="analyze-btn" class="primary-btn">
                     <span class="btn-text">Analyze Situation</span>
+                    <span class="loader hidden"></span>
+                </button>
+            </section>
+
+            <!-- Historical Analysis Input -->
+            <section id="historical-section" class="input-section glass-panel hidden">
+                <h2>Analyze Past Decision</h2>
+                <div class="form-group">
+                    <label>Situation Description</label>
+                    <textarea id="hist-situation" placeholder="What happened?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Actual Decision</label>
+                    <textarea id="hist-decision" style="height: 80px" placeholder="What did you decide?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Actual Outcome</label>
+                    <textarea id="hist-outcome" style="height: 80px" placeholder="What was the result?"></textarea>
+                </div>
+                <button id="hist-analyze-btn" class="primary-btn">
+                    <span class="btn-text">Analyze History</span>
                     <span class="loader hidden"></span>
                 </button>
             </section>
@@ -81,6 +108,42 @@
                         </div>
                         <div class="meta-item">
                             <span id="analysis-status" class="status-message"></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            </section>
+
+            <section id="hist-results-section" class="results-section hidden">
+                <div class="glass-panel">
+                    <h3>Analysis Report</h3>
+                    <div class="score-banner">
+                        <div class="score-label">Adherence Score</div>
+                        <div id="hist-score" class="score-value">--</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col glass-panel">
+                        <h3>Gaps Identified</h3>
+                        <ul id="hist-gaps" class="gap-list"></ul>
+                    </div>
+                    <div class="col glass-panel">
+                        <h3>Lessons Learned</h3>
+                        <ul id="hist-lessons" class="lesson-list"></ul>
+                    </div>
+                </div>
+
+                <div class="glass-panel">
+                    <h3>Recommended vs Actual</h3>
+                    <div class="comparison-grid">
+                        <div class="cmp-col">
+                            <h4>What You Did</h4>
+                            <div id="hist-actual" class="cmp-content"></div>
+                        </div>
+                        <div class="cmp-col">
+                            <h4>What Principles Say</h4>
+                            <div id="hist-recommended" class="cmp-content"></div>
                         </div>
                     </div>
                 </div>

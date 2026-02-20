@@ -221,6 +221,21 @@ class DecisionEngine:
                 f"The situation triggers the following Standard Operating Procedures: {', '.join(sop_names)}."
             )
             rec_parts.append(f"**IMMEDIATE ACTION:** Execute SOP(s): {', '.join(sop_names)}.")
+            
+            for sop in sops:
+                rec_parts.append(f"\n### SOP: {sop.name}")
+                rec_parts.append(f"**Purpose:** {sop.purpose}")
+                
+                if sop.modes:
+                    rec_parts.append("\n**Modes:**")
+                    for mode_name, mode_steps in sop.modes.items():
+                        rec_parts.append(f"\n- **Mode {mode_name}**")
+                        for i, step in enumerate(mode_steps, 1):
+                            rec_parts.append(f"  {i}. {step}")
+                
+                rec_parts.append("\n**Steps:**")
+                for i, step in enumerate(sop.steps, 1):
+                    rec_parts.append(f"{i}. {step}")
 
         # Analyze Values
         if alignment.value_scores:

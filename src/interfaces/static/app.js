@@ -104,12 +104,43 @@ function renderResults(data) {
     // SOPs
     if (data.triggered_sops && data.triggered_sops.length > 0) {
         els.sopsContainer.style.display = 'block';
-        els.sops.innerHTML = data.triggered_sops.map(s => `
+        els.sops.innerHTML = data.triggered_sops.map(s => {
+            let modesHtml = '';
+            // Check if modes exist and has keys
+            if (s.modes && Object.keys(s.modes).length > 0) {
+                modesHtml = `<div class="sop-modes">
+                    <div style="margin-bottom:0.25rem"><strong>Modes:</strong></div>
+                    ${Object.entries(s.modes).map(([name, steps]) => `
+                        <details style="margin-bottom: 0.5rem">
+                            <summary>Mode ${name}</summary>
+                            <ol class="sop-steps">
+                                ${steps.map(step => `<li>${step.instruction}</li>`).join('')}
+                            </ol>
+                        </details>
+                    `).join('')}
+                </div>`;
+            }
+
+            let stepsHtml = '';
+            if (s.steps && s.steps.length > 0) {
+                stepsHtml = `<div class="sop-steps-container">
+                    <div style="margin-bottom:0.25rem"><strong>Steps:</strong></div>
+                    <ol class="sop-steps">
+                        ${s.steps.map(step => `<li>${step.instruction}</li>`).join('')}
+                    </ol>
+                </div>`;
+            }
+
+            return `
             <li style="border-left-color: var(--warning-color)">
-                <strong>${s.name}</strong>
-                <div>${s.purpose}</div>
+                <div class="sop-header">
+                    <strong style="font-size: 1.1em">${s.name}</strong>
+                    <div class="sop-purpose">${s.purpose}</div>
+                </div>
+                ${modesHtml}
+                ${stepsHtml}
             </li>
-        `).join('');
+        `}).join('');
     } else {
         els.sopsContainer.style.display = 'none';
     }
@@ -148,6 +179,134 @@ function formatText(text) {
     let formatted = text.replace(/\n/g, '<br>');
     formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     return formatted;
+}
+
+// --- Historical Analysis & Tabs ---
+
+const tabs = document.querySelectorAll('.tab-btn');
+const liveSection = document.getElementById('live-section');
+const histSection = document.getElementById('historical-section');
+const histResults = document.getElementById('hist-results-section');
+
+// Tab Switching
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        // Remove active class
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // Toggle sections
+        if (tab.dataset.tab === 'live') {
+            liveSection.classList.remove('hidden');
+            histSection.classList.add('hidden');
+            histResults.classList.add('hidden');
+            if (!els.results.classList.contains('hidden')) {
+                els.results.classList.remove('hidden');
+            }
+        } else {
+            liveSection.classList.add('hidden');
+            histSection.classList.remove('hidden');
+            els.results.classList.add('hidden');
+            // Don't auto-show results, wait for analysis
+        }
+    });
+});
+
+// Historical Analysis
+const histBtn = document.getElementById('hist-analyze-btn');
+const histInputs = {
+    situation: document.getElementById('hist-situation'),
+    decision: document.getElementById('hist-decision'),
+    outcome: document.getElementById('hist-outcome')
+};
+
+histBtn.addEventListener('click', async () => {
+    const sit = histInputs.situation.value.trim();
+    const dec = histInputs.decision.value.trim();
+    const out = histInputs.outcome.value.trim();
+
+    if (!sit || !dec || !out) {
+        alert('Please fill in all fields');
+        return;
+    }
+
+    // UI State
+    histBtn.disabled = true;
+    const btnText = histBtn.querySelector('.btn-text');
+    const loader = histBtn.querySelector('.loader');
+    const originalText = btnText.textContent;
+
+    btnText.textContent = 'Analyzing...';
+    loader.classList.remove('hidden');
+    histResults.classList.add('hidden');
+
+    try {
+        const res = await fetch(`${API_URL}/analyze/historical`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                description: sit,
+                actual_decision: dec,
+                actual_outcome: out
+            })
+        });
+
+        if (!res.ok) throw new Error('Analysis failed');
+
+        const data = await res.json();
+        renderHistoricalResults(data);
+
+    } catch (e) {
+        alert('Error: ' + e.message);
+    } finally {
+        histBtn.disabled = false;
+        btnText.textContent = originalText;
+        loader.classList.add('hidden');
+    }
+});
+
+function renderHistoricalResults(data) {
+    histResults.classList.remove('hidden');
+
+    // Score
+    const scoreEl = document.getElementById('hist-score');
+    const score = Math.round(data.principle_adherence_score * 100);
+    scoreEl.textContent = `${score}%`;
+    scoreEl.style.color = score > 80 ? 'var(--success-color)' : (score > 50 ? '#fbbf24' : 'var(--warning-color)');
+
+    // Gaps
+    const gapsList = document.getElementById('hist-gaps');
+    if (data.gaps && data.gaps.length > 0) {
+        gapsList.innerHTML = data.gaps.map(g => `
+            <li>
+                <strong>${g.gap_type.replace('_', ' ')}</strong>
+                <p>${g.description}</p>
+                <div style="font-size:0.8rem; margin-top:0.5rem; opacity:0.7">Severity: ${g.severity}/10</div>
+            </li>
+        `).join('');
+    } else {
+        gapsList.innerHTML = '<li>No significant gaps identified. Excellent adherence!</li>';
+    }
+
+    // Lessons
+    const lessonsList = document.getElementById('hist-lessons');
+    if (data.lessons && data.lessons.length > 0) {
+        lessonsList.innerHTML = data.lessons.map(l => `
+            <li>
+                <strong>Insight</strong>
+                <p>${l.insight}</p>
+                <div style="margin-top:0.5rem; color:var(--accent-color)">👉 ${l.actionable}</div>
+            </li>
+        `).join('');
+    } else {
+        lessonsList.innerHTML = '<li>No specific lessons extracted.</li>';
+    }
+
+    // Comparison
+    document.getElementById('hist-actual').textContent = data.actual_decision;
+    document.getElementById('hist-recommended').innerHTML = formatText(data.recommended_decision.recommendation);
+
+    histResults.scrollIntoView({ behavior: 'smooth' });
 }
 
 // Init
